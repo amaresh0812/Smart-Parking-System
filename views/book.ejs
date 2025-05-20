@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f7f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .book-container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-container img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="datetime-local"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    .time-book {
+      margin-top: 20px;
+    }
+
+    .time-book > div {
+      margin-bottom: 15px;
+    }
+
+    hr {
+      margin: 20px 0;
+      border: 0;
+      border-top: 1px solid #ddd;
+    }
+
+    .cost-display {
+      font-weight: 600;
+      font-size: 15px;
+      color: #444;
+      margin-top: 8px;
+    }
+
+    input[type="submit"],
+    input[type="button"] {
+      padding: 12px 20px;
+      margin-top: 20px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"] {
+      background-color: #28a745;
+      color: white;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #218838;
+    }
+
+    input[type="button"] {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    input[type="button"]:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+
+  <%- include('partials/header') %>
+
+  <div class="book-container">
+    <form action="/book" method="post">
+      <img src="/image2.png" alt="Parking Image" id="image-park">
+
+      <label for="parking-select">Select Parking Location:</label>
+      <select id="parking-select" onchange="showCostAndUpdate()">
+        <option value="">--Choose a Parking Lot--</option>
+        <option value="Parking Lot A">Parking Lot A</option>
+        <option value="Parking Lot B">Parking Lot B</option>
+        <option value="Parking Lot C">Parking Lot C</option>
+        <option value="Parking Lot A">Parking Lot D</option>
+        <option value="Parking Lot B">Parking Lot E</option>
+      </select>
+
+      <p id="cost-output" style="font-weight: bold; margin-top: 10px;"></p>
+
+      <label for="vehicleNumber">Enter Vehicle Number</label>
+      <input type="text" name="vehicleNumber" placeholder="Enter vehicle number"
+        style="text-transform: uppercase;" required>
+
+      <div class="time-book">
+        <div>
+          <label for="startPeriod">Start By</label>
+          <input type="datetime-local" name="startPeriod" id="startPeriod" required>
+        </div>
+        <div>
+          <label for="endPeriod">End By</label>
+          <input type="datetime-local" name="endPeriod" id="endPeriod" required>
+        </div>
+
+        <hr>
+
+        <div class="cost-display">Duration: <span id="durationText">0</span> hours</div>
+        <div class="cost-display">Total Cost: $<span id="costText">0.00</span></div>
+      </div>
+
+      <input type="submit" value="Confirm Booking">
+      <input type="button" value="Close" onclick="document.querySelector('.book-container').style.display='none'">
+    </form>
+  </div>
+
+  <script>
+    const parkingLocations = [
+      { name: "Parking Lot A", lat: 12.968, lon: 80.221, cost: 15, image: "/image.png" },
+      { name: "Parking Lot B", lat: 12.970, lon: 80.225, cost: 20, image: "/image1.png" },
+      { name: "Parking Lot C", lat: 12.964, lon: 80.219, cost: 30, image: "/image2.png" },
+    ];
+
+    let selectedCost = 0;
+
+    const startInput = document.getElementById('startPeriod');
+    const endInput = document.getElementById('endPeriod');
+    const durationText = document.getElementById('durationText');
+    const costText = document.getElementById('costText');
+
+    function showCostAndUpdate() {
+      const selectedName = document.getElementById("parking-select").value;
+      const location = parkingLocations.find(p => p.name === selectedName);
+      const costOutput = document.getElementById("cost-output");
+      const image = document.getElementById("image-park");
+
+      if (location) {
+        selectedCost = location.cost;
+        costOutput.textContent = `Cost: $${selectedCost} per hour`;
+        image.src = location.image;
+      } else {
+        selectedCost = 0;
+        costOutput.textContent = '';
+        image.src = "/image2.png";
+      }
+
+      updateBookingDetails(); // re-calculate cost if time already selected
+    }
+
+    function updateBookingDetails() {
+      const start = new Date(startInput.value);
+      const end = new Date(endInput.value);
+
+      if (start && end && end > start) {
+        const hours = Math.ceil((end - start) / (1000 * 60 * 60)); // Round up
+        durationText.textContent = hours;
+        costText.textContent = (hours * selectedCost).toFixed(2);
+      } else {
+        durationText.textContent = 0;
+        costText.textContent = "0.00";
+      }
+    }
+
+    startInput.addEventListener('change', updateBookingDetails);
+    endInput.addEventListener('change', updateBookingDetails);
+  </script>
+
+  <%- include('partials/footer') %>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+</body>
+</html>

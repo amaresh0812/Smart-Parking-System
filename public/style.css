@@ -1,0 +1,317 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+    margin: 0;
+    text-align: center;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100vw;
+  }
+  header svg{
+    width: 40px; /* Adjust as needed */
+    height: auto;
+    position: fixed;
+    top: 10px;
+    left: 20px;
+  }
+.header_1 {
+    position: relative;         /* Sticks to top */
+    top: 0;                  /* Aligns at the top */
+    left: 0;                 /* Aligns to the left edge */
+    width: 100vw;            /* Full viewport width */
+    background-color: #e09d15;
+    color: white;
+    padding: 15px 30px;
+    box-sizing: border-box;
+    z-index: 1000;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .nav-left a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .nav-left a:hover {
+    color: #ffd700;
+  }
+  .align-right{
+    display: flex;
+    flex-direction: row;
+    margin-right: 0;
+    gap: 10px;
+  }
+  .login-signup input[type="button"] {
+    background-color: white;
+    color: #cd741c;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  
+  .login-signup input[type="button"]:hover {
+    background-color: #2dd821;
+    color: white;
+  }
+  
+
+/* General reset and base styling */
+
+  
+  /* Container for the form */
+  .container-signup,.container-login {
+    background-color: white;
+    padding: 30px 40px;
+    margin-left: 0%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* Heading */
+  .container-signup h2,.container-login h2{
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+  }
+  
+  /* Labels and inputs */
+  .container-signup label,.container-login label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .container-signup input[type="text"],
+  .container-signup input[type="email"],
+  .container-signup input[type="password"],
+  .container-login input[type="email"],
+  .container-login input[type="password"]{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+  }
+  
+  .container-signup input[type="text"]:focus,
+  .container-signup input[type="email"]:focus,
+  .container-signup input[type="password"]:focus,
+  .container-login input[type="email"]:focus,
+  .container-login input[type="password"]:focus
+   {
+    border-color: #2dd821;
+    border-width: 3px;
+    outline: none;
+  }
+  
+  /* Checkbox label */
+  .container-signup input[type="checkbox"] ,.container-login input[type="checkbox"]{
+    margin-top: 10px;
+  }
+  
+  /* Submit button */
+  .container-signup input[type="submit"],.container-login input[type="submit"],#car-button{
+    margin-top: 20px;
+    width: 100%;
+    background-color: #d3a320;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;       /*Buttons */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  #findParkingBtn,#book-btn{
+    background-color: #d3a320;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;       /*Buttons */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .container-signup input[type="submit"]:hover,.container-login input[type="submit"]:hover,#searchButton:hover ,
+  #car-button:hover,#findParkingBtn:hover,#book-btn:hover{
+    background-color: #2dd821;
+  }
+  /*search bar css*/
+  .search-section {
+    width: 100vw;
+    background-color: #f9f9f9;
+    padding: 15px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: -270px;
+    
+  }
+  
+  #searchInput {
+    width: 50%;
+    max-width: 600px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  #searchButton{
+    border-radius: 8px;
+    background-color: #d3a320;
+    color: #f9f9f9;
+    
+    text-align: center;
+  }
+  
+  
+  mark.search-highlight {
+    background-color: yellow;
+    color: black;
+  }
+  /* car section */
+  .carSection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0%;
+    padding: 3%;
+    text-align: center;
+  }
+  .car-Container{
+    color: #2dd821;
+    margin-top: auto;
+  }
+  /* map interface */
+  .map-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;height: auto;
+  }
+  #map {
+    height: 500px;
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border: 3px solid #2c3e50;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    margin-bottom: 30px;
+  }
+  #map > h2{
+    
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #2c3e50;
+      margin: 20px 0;
+      font-size: 2rem;
+      text-shadow: 1px 1px 2px #ccc;
+  }
+/* car cards*/
+.row{
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+  align-items:normal;
+  justify-content: space-evenly;
+  
+  
+  gap: 10%;
+}
+.div-container{
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+  height: 300px;
+  background-color: rgba(203, 193, 174,0.2);
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  box-sizing: border-box;
+  padding: 0%;
+  gap: 2%;
+  margin-left: 200px;
+  margin-bottom: 5%;
+  box-shadow: 0 10px 30px rgba(72, 196, 44, 0.15);
+  
+
+  
+}
+.div-container>img{
+  border-radius: 15px;
+  height: 300px;
+  width: 50%;
+}
+.name-rating{
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  font-size: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  color: #2dd821;
+}
+.details{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.even-range {
+-webkit-appearance: none;
+width: 100%;
+height: 10px;
+border-radius: 5px;
+background: linear-gradient(to right, #4caf50 50%, #ddd 50%);
+outline: none;
+cursor: pointer;
+}
+
+/* Hide thumb - Chrome/Safari */
+.even-range::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 0;
+height: 0;
+background: transparent;
+border: none;
+}
+
+/* Hide thumb - Firefox */
+.even-range::-moz-range-thumb {
+width: 0;
+height: 0;
+background: transparent;
+border: none;
+}
+  

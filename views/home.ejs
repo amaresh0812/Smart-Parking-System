@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Bootstrap Example</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    
+</head>
+<body>
+    
+    <%- include('partials/header') %>
+<!-- <div class="search-section" style="width: 100%;">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search anything..."
+      
+    />
+    <input id="searchButton" type="button" onclick="searchPage()" value="Search"/>
+</div> -->
+  <!--car section--> 
+  <% if (locals.showAlert) { %>
+    <script>
+      alert("Booking submitted successfully!");
+    </script>
+  <% } %>
+
+  <section class="carSection">
+    <div class="car-Container">
+        <h2>CarS</h2>
+    
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/image1.png" class="d-block w-100" width="800" height="400" alt="Scalability">
+            </div>
+            <div class="carousel-item">
+                <img src="/image.png" class="d-block w-100" width="800" height="400" alt="Connectvity">
+            </div>
+            <div class="carousel-item">
+                <img src="/image2.png" class="d-block w-100" width="800" height="400" alt="Security">
+            </div>
+            </div>
+            <button class="carousel-control-prev" style="color: black;" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" style="color: black;" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div >
+            <input id="car-button" type="button" value="Book Now" onclick="window.location.href='/book'">
+        </div>
+    </div>
+  </section>
+  
+  
+  
+  <script>
+    function searchPage() {
+      const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+      const bodyText = document.body;
+  
+      // Remove previous highlights
+      const prevMarks = bodyText.querySelectorAll("mark.search-highlight");
+      prevMarks.forEach(mark => {
+        const parent = mark.parentNode;
+        parent.replaceChild(document.createTextNode(mark.textContent), mark);
+        parent.normalize();
+      });
+  
+      if (searchTerm.trim() === "") return;
+  
+      // Walk through all text nodes
+      const walk = document.createTreeWalker(bodyText, NodeFilter.SHOW_TEXT, null);
+      while (walk.nextNode()) {
+        const node = walk.currentNode;
+        const text = node.nodeValue;
+        const index = text.toLowerCase().indexOf(searchTerm);
+        if (index !== -1 && node.parentNode.nodeName !== "SCRIPT") {
+          const mark = document.createElement("mark");
+          mark.className = "search-highlight";
+          mark.textContent = text.substr(index, searchTerm.length);
+          const after = document.createTextNode(text.substr(index + searchTerm.length));
+          const before = document.createTextNode(text.substr(0, index));
+          const parent = node.parentNode;
+          parent.replaceChild(after, node);
+          parent.insertBefore(mark, after);
+          parent.insertBefore(before, mark);
+        }
+      }
+    }
+  </script>
+  
+  
+<%- include('partials/footer') %>
+</body>
+</html>

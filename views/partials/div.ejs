@@ -1,0 +1,26 @@
+<div class="book-container">
+    <form action="/book" method="post">
+        <img src="${p.image}" alt="${p.name}">
+        <label for="name">${this.p.name}</label>
+        <label for="distance">${this.p.distance}</label>
+        <label for="cost">$ ${this.p.cost} per hour</label>
+        <label for="vehicleNumber">Enter vehicle Number </label>
+        <input type="text" name="vehicleNumber" placeholder="Enter vehicle number" style="text-transform: uppercase;" required>
+        <div class="time-book">
+            <div>
+                <label for="startPeroid">Start By</label>
+                <input type="datetime-local">
+            </div>
+            <div>
+                <label for="endPeroid">End By</label>
+                <input type="datetime-local">
+            </div>
+            <hr>
+            <label for="duration"> Duration:${Total time}</label>
+            <label for="totalCost"> Cost:${Total time}</label>
+        </div>
+        <input type="button" value="confirm booking">
+        <input type="button" value="Close" >
+
+    </form>
+</div>
