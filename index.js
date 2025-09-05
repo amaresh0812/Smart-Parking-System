@@ -9,7 +9,7 @@ import path from 'path';
 
 
 const app = express();
-var port = 3000;
+var port = process.env.PORT || 3000;
 let vacant = 0;
 env.config();
 const parkingLocations = [
